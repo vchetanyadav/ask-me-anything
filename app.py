@@ -3,7 +3,7 @@ import pandas as pd
 from agent import quer_agent
 from utils import load_csv
 
-st.set_page_config(page_title="Ask Your Data ", layout="wide")
+st.set_page_config(page_title="Ask Me Anything ", layout="wide")
 st.title("Ask your data - AI-powered CSV assistant")
 uploaded_file=st.file_uploader("Upload a csv file", type=["csv"])
 
