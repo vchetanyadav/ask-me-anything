@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from agent import quer_agent
+from agent import query_agent
 from utils import load_csv
 
 st.set_page_config(page_title="Ask Me Anything ", layout="wide")
