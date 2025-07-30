@@ -15,6 +15,6 @@ if uploaded_file:
 
     if question:
         with st.spinner("Processing your question..."):
-            repponse = quer_agent(question, df)
+            repponse = query_agent(question, df)
             st.write(repponse)
             
