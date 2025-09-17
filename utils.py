@@ -1,15 +1,19 @@
 import pandas as pd
-from langchain_experimental.agents import create_pandas_dataframe_agent
-from langchain.llms import OpenAI
-from dotenv import load_dotenv
-import os
+import streamlit as st
 
-load_dotenv()
-
-def query_agent(df: pd.DataFrame, question: str) -> str:
-    llm=OpenAI(temperature=0)
-    agent = create_pandas_dataframe_agent(llm, df, verbose=True)
+@st.cache_data
+def load_csv(file) -> pd.DataFrame:
+    """
+    Load a CSV file (uploaded via Streamlit or a file path) into a DataFrame.
+    Works for both uploaded file objects and string paths.
+    """
     try:
-        return agent.run(question)
+        if hasattr(file, "read"):  # Streamlit uploader gives a file-like object
+            return pd.read_csv(file)
+        elif isinstance(file, str):  # If it's a file path
+            return pd.read_csv(file)
+        else:
+            raise ValueError("Unsupported file type for CSV loading")
     except Exception as e:
-        return f" Error: {str(e)}"
+        st.error(f"❌ Failed to load CSV: {e}")
+        return pd.DataFrame()  # return empty dataframe on failure
