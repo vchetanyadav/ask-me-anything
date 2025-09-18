@@ -10,7 +10,7 @@ uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
 if uploaded_file:
     df = load_csv(uploaded_file)
-    
+
     if df.empty:
         st.warning("The uploaded CSV is empty or failed to load.")
     else:
@@ -21,6 +21,6 @@ if uploaded_file:
 
         if question:
             with st.spinner("Processing your question..."):
-                response = query_agent(df, question)  # ✅ correct parameter order
+                response = query_agent(df, question)
                 st.subheader("Answer:")
                 st.write(response)
