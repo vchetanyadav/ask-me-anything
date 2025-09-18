@@ -13,7 +13,7 @@ def query_agent(df: pd.DataFrame, question: str) -> str:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return "❌ Error: OPENAI_API_KEY not set in environment."
-    
+
     try:
         llm = ChatOpenAI(
             temperature=0,
@@ -23,5 +23,4 @@ def query_agent(df: pd.DataFrame, question: str) -> str:
         agent = create_pandas_dataframe_agent(llm, df, verbose=False)
         return agent.run(question)
     except Exception as e:
-        print(f"[Agent Error] {e}")  # logs to Hugging Face console
         return f"❌ Error: {str(e)}"
