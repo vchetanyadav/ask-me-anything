@@ -12,7 +12,7 @@ def query_agent(df: pd.DataFrame, question: str) -> str:
     """
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        return "❌ Error: OPENAI_API_KEY not set in environment."
+        return " Error: OPENAI_API_KEY not set in environment."
 
     try:
         llm = ChatOpenAI(
@@ -20,7 +20,14 @@ def query_agent(df: pd.DataFrame, question: str) -> str:
             api_key=api_key,
             model="gpt-3.5-turbo"
         )
-        agent = create_pandas_dataframe_agent(llm, df, verbose=False)
+        agent = create_pandas_dataframe_agent(
+            llm,
+            df,
+            verbose=False,
+            allow_dangerous_code=True   
+        )
         return agent.run(question)
     except Exception as e:
         return f"❌ Error: {str(e)}"
+
+
